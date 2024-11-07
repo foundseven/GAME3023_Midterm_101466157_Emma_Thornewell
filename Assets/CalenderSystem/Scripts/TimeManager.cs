@@ -112,6 +112,7 @@ namespace Calender
         private int minutes;
         private int hour;
 
+        private Days day;
         private int date;
         private int year;
 
@@ -129,6 +130,7 @@ namespace Calender
         public int Seconds => seconds;
         public int Minutes => minutes;
         public int Hours => hour;
+        private Days Days => day;
         public int Date => date;
         public int Year => year;
         public Season Season => season;
@@ -150,6 +152,14 @@ namespace Calender
             this.minutes = minutes; 
             this.hour = hours;
 
+            //this sets the day of the week with the knowledge of what the date itself is
+            //example = if date = 10 then 1- % 7 = 3 meaning its the third day of the week
+            this.day = (Days)(date % 7);
+            if(day == 0)
+            {
+                day = (Days)7;
+            }
+
             this.date = date;
             this.season = (Season)season;
             this.year = year;
@@ -170,8 +180,22 @@ namespace Calender
         //set date and time advancement in here
         #region Times Arrow Marches forward (Time advancement)
 
-        //maybe i break it down by seconds, minutes, hour
+        //maybe i break it down by seconds, minutes, hour, days, season
         #endregion
+    }
+
+    #region Enums
+    [Serializable]
+    public enum Days
+    {
+        NULL = 0,
+        Monday = 1,
+        Tuesday = 2,
+        Wednesday = 3,
+        Thursday = 4,
+        Friday = 5,
+        Saturday = 6,
+        Sunday = 7
     }
 
     [Serializable]
@@ -182,4 +206,5 @@ namespace Calender
         Fall = 2,
         Winter = 3
     }
+    #endregion
 }

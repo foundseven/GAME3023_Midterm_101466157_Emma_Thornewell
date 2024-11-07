@@ -61,6 +61,125 @@ namespace Calender
         {
         
         }
+
+        //
+        private void AdvanceTime()
+        {
+            //so here we want to run through everything
+            //staring with seconds
+            seconds++;
+            if(seconds >= 60)
+            {
+                //put seconds back at 0
+                seconds = 0;
+                minute++;
+                if(minute >= 60) 
+                {
+                    //put minute back at 0
+                    minute = 0;
+                    hour++;
+                    if(hour >= 24)
+                    {
+                        //pu hour back at 0
+                        hour = 0;
+                        date++;
+                        if(date > 28)
+                        {
+                            //rotate the day back to the first
+                            date = 1;
+                            season++;
+                            if(season > 4)
+                            {
+                                //rotate the season back to the first
+                                season = 1;
+                                year++;
+                            }
+                        }
+                    }
+                }
+            }
+            //notify listeners about the updated time
+            OnDateTimeChanged?.Invoke(DateTime);
+        }
     }
 
+    [Serializable]
+    public struct DateTime
+    {
+        #region Fields
+
+        private int seconds;
+        private int minutes;
+        private int hour;
+
+        private int date;
+        private int year;
+
+        //make something for the season - enum
+        private Season season;
+
+        //add num of days and weeks to rot through
+        private int totalNumDays;
+        private int totalNumWeeks;
+
+        #endregion
+
+        #region Properties
+        
+        public int Seconds => seconds;
+        public int Minutes => minutes;
+        public int Hours => hour;
+        public int Date => date;
+        public int Year => year;
+        public Season Season => season;
+        public int TotalNumDays => totalNumDays;
+        //todo
+        //a little math will be needed to get the current week
+        public int CurrentWeek => totalNumWeeks;  
+
+
+        #endregion
+
+        #region Constructor
+        public DateTime(int seconds, int minutes, int hours, int date, int season, int year)
+        {
+            //going to have the this constructer added
+            //so this will be for setting up the date season years and what not
+            //timing
+            this.seconds = seconds;
+            this.minutes = minutes; 
+            this.hour = hours;
+
+            this.date = date;
+            this.season = (Season)season;
+            this.year = year;
+
+            //set the total num days
+            //cast our season enum to an int, check if it is greater than 0, it will calc the number of days based on date and season
+            //it then multiplies the current season number by 28 (assumed date i put in)
+            //lastly it adds the date to the total days in previous seaons repping the culmulative day count for the entire year up to the day
+            totalNumDays = (int)this.season > 0  ? date + (28 * (int)this.season) : 0;
+            //adjust the total numdays to include the days from previous years
+            totalNumDays = year > 1 ? totalNumDays + (112 * (year - 1)) : totalNumDays;
+            //set total weeks based on the total num days
+            totalNumWeeks = 1 + totalNumDays / 7;
+        }
+        #endregion
+
+        //todo
+        //set date and time advancement in here
+        #region Times Arrow Marches forward (Time advancement)
+
+        //maybe i break it down by seconds, minutes, hour
+        #endregion
+    }
+
+    [Serializable]
+    public enum Season
+    {
+        Spring = 0,
+        Summer = 1,
+        Fall = 2,
+        Winter = 3
+    }
 }

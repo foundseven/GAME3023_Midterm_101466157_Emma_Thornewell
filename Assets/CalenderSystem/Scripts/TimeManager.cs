@@ -18,11 +18,6 @@ namespace Calender
         //minutes
         [Range(0, 59)]
         public int minute;
-       
-        //seconds
-        //[Range(1, 59)]
-        //public int seconds;
-       
         //season
         //making it 1 - 4 for readability
         [Range(1, 4)]
@@ -52,7 +47,7 @@ namespace Calender
         {
             //setting a new datetime with my variables
             //our own struct if yew will
-            DateTime = new DateTime(minute, hour, date, season - 1, year/*, seconds*/);
+            DateTime = new DateTime(minute, hour, date, season - 1, year);
         }
 
         void Start()
@@ -78,7 +73,6 @@ namespace Calender
     {
         #region Fields
 
-       // private int seconds;
         private int minutes;
         private int hour;
 
@@ -97,7 +91,6 @@ namespace Calender
 
         #region Properties
         
-       // public int Seconds => seconds;
         public int Minutes => minutes;
         public int Hours => hour;
         private Days Days => day;
@@ -113,12 +106,11 @@ namespace Calender
         #endregion
 
         #region Constructor
-        public DateTime(/*int seconds,*/ int minutes, int hours, int date, int season, int year)
+        public DateTime(int minutes, int hours, int date, int season, int year)
         {
             //going to have the this constructer added
             //so this will be for setting up the date season years and what not
             //timing
-            //this.seconds = seconds;
             this.minutes = minutes; 
             this.hour = hours;
 
@@ -151,20 +143,40 @@ namespace Calender
         #region Times Arrow Marches forward (Time advancement)
 
         //maybe i break it down by minutes, hour, days, season
-        
         //minutes
-        private void AdvanceMinutes()
+        public void AdvanceMinutes(int timeMovement)
         {
+            //so make the minutes go up
+            minutes += timeMovement;
 
+            //if the seconds reach 60
+            if(minutes + timeMovement >= 60)
+            {
+                //make the minute 1
+                minutes = (minutes + timeMovement) % 60;
+                //advance the hour
+                AdvanceHours();
+            }
         }
         //hours
         private void AdvanceHours()
         {
-
+            //add the hour
+            hour++;
+            //if the hour is 24 (bc duh you cant have that)
+            if((hour + 1) == 24)
+            {
+                //hour equals 0
+                hour = 0;
+                //add the day
+                AdvanceDays();
+            }
         }
         //days
         private void AdvanceDays()
         {
+            //todo
+            //so we want to advance the day (of the week) AND the date
 
         }
         //season?

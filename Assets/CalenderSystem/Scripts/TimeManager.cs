@@ -65,18 +65,12 @@ namespace Calender
             //so ill run through my own ticking here
             CurrentTickTime += Time.deltaTime;
 
+            //so when it gets to 2, reset and do it again
             if(CurrentTickTime >= TimeBetweenTicks)
             {
                 CurrentTickTime = 0;
                 AdvanceTime();
             }
-
-            //debuggers
-            //Debug.Log("Minutes: " + minute);
-            //Debug.Log("Hour: " + hour);
-            //Debug.Log("Date: " + date);
-            //Debug.Log("Season: " + season);
-            //Debug.Log("Year: " + year);
         }
 
         //changing this so it maybe only works through the ticking, and the date and time struct will hold the actual movement

@@ -138,8 +138,6 @@ namespace Calender
         }
         #endregion
 
-        //todo
-        //set date and time advancement in here
         #region Times Arrow Marches forward (Time advancement)
 
         //maybe i break it down by minutes, hour, days, season
@@ -175,12 +173,51 @@ namespace Calender
         //days
         private void AdvanceDays()
         {
-            //todo
+            //totaly num of days goes up
+            totalNumDays++;
+           
+            //move the day up
+            day++;
             //so we want to advance the day (of the week) AND the date
+            //so if the DOTW is greater than 7
+            if (day + 1 > (Days)7)
+            {
+                //put the day of the week back to 1
+                day = (Days)1;
+                totalNumWeeks++;
+            }
 
+            //move the date up
+            date++;
+            //so this way we know if the "month" is up
+            if(date % 29  == 0)
+            {
+                //bring it back to the 1st bc you cant have day 0
+                date = 1;
+                //advance the season
+                AdvanceSeason();
+            }
         }
-        //season?
-        //just wait for this
+        //season
+        private void AdvanceSeason()
+        {
+            //so run through all of them, starting at spring
+            //when it hits the last one (winter), go back to spring
+
+            season++;
+
+            if(Season == Season.Winter)
+            {
+                season = Season.Spring;
+                AdvanceYear();
+            }
+        }
+
+        //year
+        private void AdvanceYear()
+        {
+            year++;
+        }
         #endregion
     }
 

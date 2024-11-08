@@ -42,6 +42,8 @@ namespace Calender
         //so everytime the date changes it can recieve this unity action and will update the clock accordingly
         public static UnityAction<DateTime> OnDateTimeChanged;
 
+        //todo: add my own ticking to make time move at a different speed?
+
         #endregion
 
         private void Awake()
@@ -59,47 +61,13 @@ namespace Calender
         //we will want to run through ticking here
         void Update()
         {
-        
+            //so ill run through my own ticking here
         }
 
-        //
+        //changing this so it maybe only works through the ticking, and the date and time struct will hold the actual movement
         private void AdvanceTime()
         {
-            //so here we want to run through everything
-            //staring with seconds
-            seconds++;
-            if(seconds >= 60)
-            {
-                //put seconds back at 0
-                seconds = 0;
-                minute++;
-                if(minute >= 60) 
-                {
-                    //put minute back at 0
-                    minute = 0;
-                    hour++;
-                    if(hour >= 24)
-                    {
-                        //pu hour back at 0
-                        hour = 0;
-                        date++;
-                        if(date > 28)
-                        {
-                            //rotate the day back to the first
-                            date = 1;
-                            season++;
-                            if(season > 4)
-                            {
-                                //rotate the season back to the first
-                                season = 1;
-                                year++;
-                            }
-                        }
-                    }
-                }
-            }
-            //notify listeners about the updated time
-            OnDateTimeChanged?.Invoke(DateTime);
+           
         }
     }
 
@@ -181,6 +149,29 @@ namespace Calender
         #region Times Arrow Marches forward (Time advancement)
 
         //maybe i break it down by seconds, minutes, hour, days, season
+        
+        //seconds
+        public void AdvanceSeconds()
+        {
+
+        }
+        //minutes
+        private void AdvanceMinutes()
+        {
+
+        }
+        //hours
+        private void AdvanceHours()
+        {
+
+        }
+        //days
+        private void AdvanceDays()
+        {
+
+        }
+        //season?
+        //just wait for this
         #endregion
     }
 

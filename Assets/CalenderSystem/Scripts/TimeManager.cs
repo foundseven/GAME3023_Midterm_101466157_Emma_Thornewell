@@ -18,9 +18,11 @@ namespace Calender
         //minutes
         [Range(0, 59)]
         public int minute;
+       
         //seconds
-        [Range(1, 59)]
-        public int seconds;
+        //[Range(1, 59)]
+        //public int seconds;
+       
         //season
         //making it 1 - 4 for readability
         [Range(1, 4)]
@@ -50,7 +52,7 @@ namespace Calender
         {
             //setting a new datetime with my variables
             //our own struct if yew will
-            DateTime = new DateTime(year, season - 1, date, hour, minute, seconds);
+            DateTime = new DateTime(minute, hour, date, season - 1, year/*, seconds*/);
         }
 
         void Start()
@@ -76,7 +78,7 @@ namespace Calender
     {
         #region Fields
 
-        private int seconds;
+       // private int seconds;
         private int minutes;
         private int hour;
 
@@ -95,7 +97,7 @@ namespace Calender
 
         #region Properties
         
-        public int Seconds => seconds;
+       // public int Seconds => seconds;
         public int Minutes => minutes;
         public int Hours => hour;
         private Days Days => day;
@@ -111,12 +113,12 @@ namespace Calender
         #endregion
 
         #region Constructor
-        public DateTime(int seconds, int minutes, int hours, int date, int season, int year)
+        public DateTime(/*int seconds,*/ int minutes, int hours, int date, int season, int year)
         {
             //going to have the this constructer added
             //so this will be for setting up the date season years and what not
             //timing
-            this.seconds = seconds;
+            //this.seconds = seconds;
             this.minutes = minutes; 
             this.hour = hours;
 
@@ -148,13 +150,8 @@ namespace Calender
         //set date and time advancement in here
         #region Times Arrow Marches forward (Time advancement)
 
-        //maybe i break it down by seconds, minutes, hour, days, season
+        //maybe i break it down by minutes, hour, days, season
         
-        //seconds
-        public void AdvanceSeconds()
-        {
-
-        }
         //minutes
         private void AdvanceMinutes()
         {

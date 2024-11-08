@@ -40,6 +40,10 @@ namespace Calender
         public static UnityAction<DateTime> OnDateTimeChanged;
 
         //todo: add my own ticking to make time move at a different speed?
+        [Header("Personal Tick Settings")]
+        public int TickIncrease = 5;
+        public float TimeBetweenTicks = 2;
+        public float CurrentTickTime = 0;
 
         #endregion
 
@@ -59,12 +63,28 @@ namespace Calender
         void Update()
         {
             //so ill run through my own ticking here
+            CurrentTickTime += Time.deltaTime;
+
+            if(CurrentTickTime >= TimeBetweenTicks)
+            {
+                CurrentTickTime = 0;
+                AdvanceTime();
+            }
+
+            //debuggers
+            //Debug.Log("Minutes: " + minute);
+            //Debug.Log("Hour: " + hour);
+            //Debug.Log("Date: " + date);
+            //Debug.Log("Season: " + season);
+            //Debug.Log("Year: " + year);
         }
 
         //changing this so it maybe only works through the ticking, and the date and time struct will hold the actual movement
         private void AdvanceTime()
         {
-           
+            //ill call on my functions i made here
+            DateTime.AdvanceMinutes(TickIncrease);
+            OnDateTimeChanged?.Invoke(DateTime);
         }
     }
 
@@ -144,6 +164,7 @@ namespace Calender
         //minutes
         public void AdvanceMinutes(int timeMovement)
         {
+            Debug.Log("Minutes: " + minutes);
             //so make the minutes go up
             minutes += timeMovement;
 
@@ -218,6 +239,11 @@ namespace Calender
         {
             year++;
         }
+        #endregion
+
+        //todo
+        #region Event Definition
+
         #endregion
     }
 

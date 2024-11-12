@@ -7,7 +7,7 @@ using UnityEngine;
 public class CalenderManager : MonoBehaviour
 {
     [SerializeField]
-    public TextMeshProUGUI Date, Time, Season, Year/*, Week*/;
+    public TextMeshProUGUI Date, Time, Season, Year, Week;
 
     private void OnEnable()
     {
@@ -23,6 +23,7 @@ public class CalenderManager : MonoBehaviour
         Date.text = dateTime.DateString();
         Time.text = dateTime.TimeString();
         Season.text = dateTime.Season.ToString();
-        Year.text = dateTime.Year.ToString();
+        Year.text = dateTime.YearString();
+        Week.text = dateTime.WeekString();
     }
 }

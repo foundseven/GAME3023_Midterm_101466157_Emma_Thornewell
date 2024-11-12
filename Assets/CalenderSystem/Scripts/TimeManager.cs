@@ -243,6 +243,7 @@ namespace Calender
         #region Printing
 
         //todo: format this so it runs through the days like a calender would, rather than through the classic format
+        //maybe do two so we can have a mini player and a big calender?
         public string DateString()
         {
             //making a string that prints the current date
@@ -283,6 +284,17 @@ namespace Calender
 
             return $"{fixedHour} : {minutes} {period}";
         }
+
+        public string WeekString()
+        {
+            return $"Week: {CurrentWeek}";
+        }
+
+        public string YearString()
+        {
+            return $"Year: {year}";
+        }
+
         #endregion
     }
 

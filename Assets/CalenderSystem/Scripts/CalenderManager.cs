@@ -1,4 +1,5 @@
 using Calender;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -22,11 +23,11 @@ public class CalenderManager : MonoBehaviour
     public GameObject calenderGrid;
 
     [Header("Visual Settings")]
-    public Light2D light;
+    public Light2D light2D;
     public float nightBrightness;
     public float dayBrightness;
+
     public GameObject rainPrefab;
-    public Transform rainSpawnLocation;
 
     #endregion
 
@@ -41,7 +42,7 @@ public class CalenderManager : MonoBehaviour
 
     #region Function Time Baby
     //make a function that will update all of the Text
-    public void UpdateDateTimeUI(DateTime dateTime)
+    public void UpdateDateTimeUI(Calender.DateTime dateTime)
     {
         Date.text = dateTime.DateString();
         Clock.text = dateTime.TimeString();
@@ -92,10 +93,19 @@ public class CalenderManager : MonoBehaviour
                     {
                         dayColor = Color.yellow;
                     }
-                    else if(currentDate == dateTime.RainySeason(dateTime.Year).Date && currentSeason == dateTime.RainySeason(dateTime.Year).Season)
+
+                    else if (currentDate == dateTime.RainySeason(dateTime.Year).Date && currentSeason == dateTime.RainySeason(dateTime.Year).Season)
                     {
                         dayColor = Color.cyan;
-                        Instantiate(rainPrefab, rainSpawnLocation.position, Quaternion.identity);
+
+                        if(dateTime.Date == dateTime.RainySeason(dateTime.Year).Date)
+                        {
+                            rainPrefab.SetActive(true);
+                        }
+                        else
+                        {
+                            rainPrefab.SetActive(false);
+                        }
                     }
 
                     //highlight the current day in green
@@ -109,13 +119,12 @@ public class CalenderManager : MonoBehaviour
                 }
             }
         }
-
-        // Set target brightness based on time of day
+        //set target brightness
         float targetBrightness = dateTime.IsNight() ? nightBrightness : dayBrightness;
 
-        // Smoothly transition to the target brightness
-        light.intensity = Mathf.Lerp(light.intensity, targetBrightness, Time.deltaTime * 0.5f);
-
+        //transition to the target brightness
+        light2D.intensity = Mathf.Lerp(light2D.intensity, targetBrightness, 0.5f * 1);
     }
+
     #endregion
 }

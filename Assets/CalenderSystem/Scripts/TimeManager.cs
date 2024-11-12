@@ -237,12 +237,46 @@ namespace Calender
         //year
         private void AdvanceYear()
         {
+            //should reset the date back to 1
+            date = 1;
             year++;
         }
         #endregion
 
         //todo
-        #region Event Definition
+        #region Event Definition + Checks
+
+        public bool IsNight()
+        {
+            //if it is after 8 pm or before 6 am
+            return hour > 20 || hour < 6;
+        }
+
+        public bool IsMorning()
+        {
+            //if it between 6 and just before 12
+            return hour >= 6 && hour < 12;
+        }
+
+        public DateTime SummerSolstice(int year)
+        {
+            if (year == 0)
+            {
+                year = 1;
+            }
+
+            return new DateTime(0, 6, 28, 2, year);
+        }
+
+        public DateTime HalloweenHaunt(int year)
+        {
+            if (year == 0)
+            {
+                year = 1;
+            }
+
+            return new DateTime(0, 6, 20, 3, year);
+        }
 
         #endregion
 

@@ -6,10 +6,11 @@ using UnityEngine;
 
 public class CalenderManager : MonoBehaviour
 {
+    #region Variables
     [Header("Calender Text Settings")]
 
     [SerializeField]
-    public TextMeshProUGUI Date, Time, Season, Year, Week, Calender;
+    public TextMeshProUGUI Date, Time, Season, Year, Week;
 
     [Header("Grid Settings")]
     [SerializeField]
@@ -17,6 +18,8 @@ public class CalenderManager : MonoBehaviour
 
     [SerializeField]
     public GameObject calenderGrid;
+
+    #endregion
 
     private void OnEnable()
     {
@@ -26,6 +29,8 @@ public class CalenderManager : MonoBehaviour
     {
         TimeManager.OnDateTimeChanged -= UpdateDateTimeUI;
     }
+
+    #region Function Time Baby
     //make a function that will update all of the Text
     public void UpdateDateTimeUI(DateTime dateTime)
     {
@@ -34,7 +39,6 @@ public class CalenderManager : MonoBehaviour
         Season.text = dateTime.Season.ToString();
         Year.text = dateTime.YearString();
         Week.text = dateTime.WeekString();
-        Calender.text = dateTime.CalenderString();
 
         // Clear existing calendar entries
         foreach (Transform child in calenderGrid.transform)
@@ -63,9 +67,38 @@ public class CalenderManager : MonoBehaviour
                     TextMeshProUGUI dayText = dayBox.GetComponentInChildren<TextMeshProUGUI>();
 
                     dayText.text = currentDate.ToString("D2");
-                    dayText.color = (currentDate == dateTime.Date) ? Color.green : Color.white;
+                    //dayText.color = (currentDate == dateTime.Date) ? Color.green : Color.white;
+
+                    //set the color
+                    Color dayColor = Color.white;
+
+                    //get the current season
+                    Season currentSeason = dateTime.Season;
+
+                    //check for the day
+                    DateTime summerSolstice = dateTime.SummerSolstice(dateTime.Year);
+                    DateTime halloweenHaunt = dateTime.HalloweenHaunt(dateTime.Year);
+
+                    if (currentSeason == Calender.Season.Spring && currentDate == summerSolstice.Date)
+                    {
+                        dayColor = Color.magenta;
+                    }
+                    else if (currentSeason == Calender.Season.Fall && currentDate == halloweenHaunt.Date)
+                    {
+                        dayColor = Color.yellow;
+                    }
+
+                    //highlight the current day in green
+                    if (currentDate == dateTime.Date)
+                    {
+                        dayColor = Color.green;
+                    }
+
+                    dayText.color = dayColor;
+
                 }
             }
         }
     }
+    #endregion
 }

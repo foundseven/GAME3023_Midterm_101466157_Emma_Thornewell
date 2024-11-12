@@ -258,26 +258,19 @@ namespace Calender
             return hour >= 6 && hour < 12;
         }
 
+        public DateTime RainySeason(int year)
+        {
+            return new DateTime(0, 6, 7, 0, year);
+        }
+
         public DateTime SummerSolstice(int year)
         {
-            //maybe add some functionality in here to make it do something?
-            if (year == 0)
-            {
-                year = 1;
-            }
-
-            return new DateTime(0, 6, 28, 2, year);
+            return new DateTime(0, 6, 28, 0, year);
         }
 
         public DateTime HalloweenHaunt(int year)
-        {
-            //maybe add some functionality in here to make it do something?
-            if (year == 0)
-            {
-                year = 1;
-            }
-
-            return new DateTime(0, 6, 20, 3, year);
+        {  
+            return new DateTime(0, 6, 20, 2, year);
         }
 
         #endregion

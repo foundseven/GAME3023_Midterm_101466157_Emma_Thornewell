@@ -12,7 +12,7 @@ public class CalenderManager : MonoBehaviour
     [Header("Calender Text Settings")]
 
     [SerializeField]
-    public TextMeshProUGUI Date, Time, Season, Year, Week;
+    public TextMeshProUGUI Date, Clock, Season, Year, Week;
 
     [Header("Grid Settings")]
     [SerializeField]
@@ -25,6 +25,8 @@ public class CalenderManager : MonoBehaviour
     public Light2D light;
     public float nightBrightness;
     public float dayBrightness;
+    public GameObject rainPrefab;
+    public Transform rainSpawnLocation;
 
     #endregion
 
@@ -42,7 +44,7 @@ public class CalenderManager : MonoBehaviour
     public void UpdateDateTimeUI(DateTime dateTime)
     {
         Date.text = dateTime.DateString();
-        Time.text = dateTime.TimeString();
+        Clock.text = dateTime.TimeString();
         Season.text = dateTime.Season.ToString();
         Year.text = dateTime.YearString();
         Week.text = dateTime.WeekString();
@@ -82,17 +84,18 @@ public class CalenderManager : MonoBehaviour
                     //get the current season
                     Season currentSeason = dateTime.Season;
 
-                    //check for the day
-                    DateTime summerSolstice = dateTime.SummerSolstice(dateTime.Year);
-                    DateTime halloweenHaunt = dateTime.HalloweenHaunt(dateTime.Year);
-
-                    if (currentSeason == Calender.Season.Spring && currentDate == summerSolstice.Date)
+                    if (currentDate == dateTime.SummerSolstice(dateTime.Year).Date && currentSeason == dateTime.SummerSolstice(dateTime.Year).Season)
                     {
                         dayColor = Color.magenta;
                     }
-                    else if (currentSeason == Calender.Season.Fall && currentDate == halloweenHaunt.Date)
+                    else if (currentDate == dateTime.HalloweenHaunt(dateTime.Year).Date && currentSeason == dateTime.HalloweenHaunt(dateTime.Year).Season)
                     {
                         dayColor = Color.yellow;
+                    }
+                    else if(currentDate == dateTime.RainySeason(dateTime.Year).Date && currentSeason == dateTime.RainySeason(dateTime.Year).Season)
+                    {
+                        dayColor = Color.cyan;
+                        Instantiate(rainPrefab, rainSpawnLocation.position, Quaternion.identity);
                     }
 
                     //highlight the current day in green
@@ -111,7 +114,7 @@ public class CalenderManager : MonoBehaviour
         float targetBrightness = dateTime.IsNight() ? nightBrightness : dayBrightness;
 
         // Smoothly transition to the target brightness
-        light.intensity = Mathf.Lerp(light.intensity, targetBrightness, 0.5f * dateTime.Minutes);
+        light.intensity = Mathf.Lerp(light.intensity, targetBrightness, Time.deltaTime * 0.5f);
 
     }
     #endregion

@@ -239,6 +239,51 @@ namespace Calender
         #region Event Definition
 
         #endregion
+
+        #region Printing
+
+        //todo: format this so it runs through the days like a calender would, rather than through the classic format
+        public string DateString()
+        {
+            //making a string that prints the current date
+            //so day date and year
+            return $"{day} / {Date} / {Year}";
+        }
+
+        public string TimeString()
+        {
+            //making a string that prints the current time
+            //this will be for minutes and hours
+            //remember it is a 24 hour clock
+            int fixedHour = 0;
+            string period = "AM";
+
+            if(hour == 0)
+            {
+                //if it is midnight
+                fixedHour = 12;
+            }
+            else if(hour == 12)
+            {
+                //if it is noon
+                fixedHour = 12;
+                period = "PM";
+            }
+            else if(hour >= 13)
+            {
+                //any hour above 13 so making it a pm case
+                fixedHour = hour - 12;
+                period = "PM";
+            }
+            else
+            {
+                //if it is morning
+                fixedHour = hour;
+            }
+
+            return $"{fixedHour} : {minutes} {period}";
+        }
+        #endregion
     }
 
     #region Enums

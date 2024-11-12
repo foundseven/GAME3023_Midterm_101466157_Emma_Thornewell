@@ -7,14 +7,20 @@ using UnityEngine;
 public class CalenderManager : MonoBehaviour
 {
     [SerializeField]
-    public TextMeshProUGUI Date, Time, Season, Week;
+    public TextMeshProUGUI Date, Time/*, Season, Week*/;
 
+    private void OnEnable()
+    {
+        TimeManager.OnDateTimeChanged += UpdateDateTimeUI;
+    }
+    private void OnDisable()
+    {
+        TimeManager.OnDateTimeChanged -= UpdateDateTimeUI;
+    }
     //make a function that will update all of the Text
     public void UpdateDateTimeUI(DateTime dateTime)
     {
-        Date.text = dateTime.ToString();
-        Time.text = dateTime.ToString();
-        Season.text = Season.ToString();
-        Week.text = Week.ToString();
+        Date.text = dateTime.DateString();
+        Time.text = dateTime.TimeString();
     }
 }

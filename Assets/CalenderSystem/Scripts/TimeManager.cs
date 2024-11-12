@@ -168,10 +168,10 @@ namespace Calender
             minutes += timeMovement;
 
             //if the seconds reach 60
-            if(minutes + timeMovement >= 60)
+            if(minutes >= 60)
             {
                 //make the minute 1
-                minutes = (minutes + timeMovement) % 60;
+                minutes = (minutes) % 60;
                 //advance the hour
                 AdvanceHours();
             }

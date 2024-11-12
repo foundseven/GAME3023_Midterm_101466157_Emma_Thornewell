@@ -50,6 +50,7 @@ namespace Calender
         [SerializeField]
         public float CurrentTickTime = 0;
 
+
         #endregion
 
         private void Awake()
@@ -112,7 +113,7 @@ namespace Calender
         
         public int Minutes => minutes;
         public int Hours => hour;
-        private Days Days => day;
+        public Days Days => day;
         public int Date => date;
         public int Year => year;
         public Season Season => season;
@@ -182,7 +183,7 @@ namespace Calender
             //add the hour
             hour++;
             //if the hour is 24 (bc duh you cant have that)
-            if((hour + 1) == 24)
+            if((hour) == 24)
             {
                 //hour equals 0
                 hour = 0;
@@ -300,43 +301,8 @@ namespace Calender
             return $"Year: {year}";
         }
 
-        //so ill make a calender string me thinks
-        public string CalenderString()
-        {
-            string calender = "";
-            int daysInMonth = 28;
-            int firstDayOfMonth = (int)day - ((date - 1) % 7);
-
-            //loop through and print
-            for (int week = 0; week < 4; week++)
-            {
-                for(int weekDay = 1; weekDay <= 7; weekDay++)
-                {
-                    int currentDate = week * 7 + weekDay;
-
-                    if(currentDate < firstDayOfMonth || currentDate > daysInMonth)
-                    {
-                        calender += "    ";
-                    }
-                    else
-                    {
-                        if(currentDate == date)
-                        {
-                            calender += $"<color=#228B22>[{currentDate:D2}]</color> ";
-                        }
-                        else
-                        {
-                            calender += $"{currentDate:D2} ";
-                        }
-                    }
-                }
-                calender += "\n";
-            }
-
-            return calender;
-        }
-
         #endregion
+
     }
 
     #region Enums

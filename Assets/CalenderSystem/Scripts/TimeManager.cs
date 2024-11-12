@@ -41,8 +41,13 @@ namespace Calender
 
         //todo: add my own ticking to make time move at a different speed?
         [Header("Personal Tick Settings")]
-        public int TickIncrease = 5;
-        public float TimeBetweenTicks = 2;
+        [SerializeField]
+        public int TickIncrease = 1;
+
+        [SerializeField]
+        public float TimeBetweenTicks = .5f;
+
+        [SerializeField]
         public float CurrentTickTime = 0;
 
         #endregion
@@ -240,7 +245,7 @@ namespace Calender
 
         #endregion
 
-        #region Printing
+        #region Printing stringggggs
 
         //todo: format this so it runs through the days like a calender would, rather than through the classic format
         //maybe do two so we can have a mini player and a big calender?
@@ -293,6 +298,42 @@ namespace Calender
         public string YearString()
         {
             return $"Year: {year}";
+        }
+
+        //so ill make a calender string me thinks
+        public string CalenderString()
+        {
+            string calender = "";
+            int daysInMonth = 28;
+            int firstDayOfMonth = (int)day - ((date - 1) % 7);
+
+            //loop through and print
+            for (int week = 0; week < 4; week++)
+            {
+                for(int weekDay = 1; weekDay <= 7; weekDay++)
+                {
+                    int currentDate = week * 7 + weekDay;
+
+                    if(currentDate < firstDayOfMonth || currentDate > daysInMonth)
+                    {
+                        calender += "    ";
+                    }
+                    else
+                    {
+                        if(currentDate == date)
+                        {
+                            calender += $"<color=#228B22>[{currentDate:D2}]</color> ";
+                        }
+                        else
+                        {
+                            calender += $"{currentDate:D2} ";
+                        }
+                    }
+                }
+                calender += "\n";
+            }
+
+            return calender;
         }
 
         #endregion

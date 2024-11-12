@@ -260,6 +260,7 @@ namespace Calender
 
         public DateTime SummerSolstice(int year)
         {
+            //maybe add some functionality in here to make it do something?
             if (year == 0)
             {
                 year = 1;
@@ -270,6 +271,7 @@ namespace Calender
 
         public DateTime HalloweenHaunt(int year)
         {
+            //maybe add some functionality in here to make it do something?
             if (year == 0)
             {
                 year = 1;

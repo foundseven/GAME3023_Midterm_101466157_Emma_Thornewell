@@ -1,8 +1,10 @@
 using Calender;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class CalenderManager : MonoBehaviour
 {
@@ -18,6 +20,11 @@ public class CalenderManager : MonoBehaviour
 
     [SerializeField]
     public GameObject calenderGrid;
+
+    [Header("Visual Settings")]
+    public Light2D light;
+    public float nightBrightness;
+    public float dayBrightness;
 
     #endregion
 
@@ -99,6 +106,13 @@ public class CalenderManager : MonoBehaviour
                 }
             }
         }
+
+        // Set target brightness based on time of day
+        float targetBrightness = dateTime.IsNight() ? nightBrightness : dayBrightness;
+
+        // Smoothly transition to the target brightness
+        light.intensity = Mathf.Lerp(light.intensity, targetBrightness, 0.5f * dateTime.Minutes);
+
     }
     #endregion
 }

@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5836985dea3bf64cb1c9b214cc6d843, type: 3}
-  m_Name: RainySeasonEvent
+  m_Script: {fileID: 11500000, guid: 37f81dbf5fd8f9349b7eae30191aab55, type: 3}
+  m_Name: SummerSolsticeEvent
   m_EditorClassIdentifier: 
-  eventName: RainySeason
+  eventName: SummerSolstice

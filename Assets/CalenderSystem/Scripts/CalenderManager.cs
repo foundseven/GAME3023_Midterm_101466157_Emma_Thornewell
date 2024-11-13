@@ -104,28 +104,17 @@ public class CalenderManager : MonoBehaviour
                     //get the current season
                     Season currentSeason = dateTime.Season;
 
+                    foreach (var calenderEvents in events)
+                    {
+                        if (currentDate == calenderEvents.eventDate.Date && currentSeason == calenderEvents.eventDate.Season)
+                        {
+                            calenderEvents.TriggerEvent(this);
+                        }
+                    }
 
-                    //if (currentDate == dateTime.SummerSolstice(dateTime.Year).Date && currentSeason == dateTime.SummerSolstice(dateTime.Year).Season)
-                    //{
-                    //    dayColor = Color.magenta;
-                    //}
                     //else if (currentDate == dateTime.HalloweenHaunt(dateTime.Year).Date && currentSeason == dateTime.HalloweenHaunt(dateTime.Year).Season)
                     //{
                     //    dayColor = Color.yellow;
-                    //}
-
-                    //else if (currentDate == dateTime.RainySeason(dateTime.Year).Date && currentSeason == dateTime.RainySeason(dateTime.Year).Season)
-                    //{
-                    //    dayColor = Color.cyan;
-
-                    //    if(dateTime.Date == dateTime.RainySeason(dateTime.Year).Date)
-                    //    {
-                    //        rainPrefab.SetActive(true);
-                    //    }
-                    //    else
-                    //    {
-                    //        rainPrefab.SetActive(false);
-                    //    }
                     //}
 
                     //highlight the current day in green
@@ -149,17 +138,6 @@ public class CalenderManager : MonoBehaviour
     public void ToggleOffandOn()
     {
         calenderPrefab.SetActive(!calenderPrefab.activeSelf);
-    }
-
-    public void TriggerEvent(Calender.DateTime dateTime)
-    {
-        foreach (var calenderEvents in events)
-        {
-            if (calenderEvents.eventDate.Equals(dateTime))
-            {
-                calenderEvents.TriggerEvent(this);
-            }
-        }
     }
 
     public void CheckAndTriggerEvents(Calender.DateTime dateTime)

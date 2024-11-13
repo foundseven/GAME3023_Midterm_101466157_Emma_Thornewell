@@ -50,6 +50,8 @@ public class CalenderManager : MonoBehaviour
         Year.text = dateTime.YearString();
         Week.text = dateTime.WeekString();
 
+
+        //TODO: make this more readable
         // Clear existing calendar entries
         foreach (Transform child in calenderGrid.transform)
         {
@@ -77,7 +79,6 @@ public class CalenderManager : MonoBehaviour
                     TextMeshProUGUI dayText = dayBox.GetComponentInChildren<TextMeshProUGUI>();
 
                     dayText.text = currentDate.ToString("D2");
-                    //dayText.color = (currentDate == dateTime.Date) ? Color.green : Color.white;
 
                     //set the color
                     Color dayColor = Color.white;

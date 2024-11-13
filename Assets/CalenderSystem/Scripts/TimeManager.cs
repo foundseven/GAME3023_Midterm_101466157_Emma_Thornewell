@@ -199,17 +199,20 @@ namespace Calender
            
             //move the day up
             day++;
+            Debug.Log($"{day}");
             //so we want to advance the day (of the week) AND the date
             //so if the DOTW is greater than 7
-            if (day + 1 > (Days)7)
+            if (day + 1 > (Days)8)
             {
                 //put the day of the week back to 1
                 day = (Days)1;
                 totalNumWeeks++;
             }
+            Debug.Log($"{day} AGAIN");
 
             //move the date up
             date++;
+            Debug.Log($"{date}");
             //so this way we know if the "month" is up
             if(date % 29  == 0)
             {
@@ -258,19 +261,24 @@ namespace Calender
             return hour >= 6 && hour < 12;
         }
 
-        public DateTime RainySeason(int year)
-        {
-            return new DateTime(0, 6, 7, 0, year);
-        }
+        //public DateTime RainySeason(int year)
+        //{
+        //    return new DateTime(0, 6, 7, 0, year);
+        //}
 
-        public DateTime SummerSolstice(int year)
-        {
-            return new DateTime(0, 6, 28, 0, year);
-        }
+        //public DateTime SummerSolstice(int year)
+        //{
+        //    return new DateTime(0, 6, 28, 0, year);
+        //}
 
-        public DateTime HalloweenHaunt(int year)
-        {  
-            return new DateTime(0, 6, 20, 2, year);
+        //public DateTime HalloweenHaunt(int year)
+        //{  
+        //    return new DateTime(0, 6, 20, 2, year);
+        //}
+
+        public DateTime AddCustomEvent(int minutes, int hours, int date, int season, int year)
+        {
+            return new DateTime(minutes, hours, date, season, year);
         }
 
         #endregion

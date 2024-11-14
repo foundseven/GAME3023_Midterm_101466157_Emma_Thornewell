@@ -8,8 +8,8 @@ public class NewEventSO : CalenderEventSO
 {
     public string eventName;
  
-    //create the color in the editor
-    public Color color;
+    ////create the color in the editor
+    //public Color color;
 
     [Header("Date and Time Settings")]
     //hours

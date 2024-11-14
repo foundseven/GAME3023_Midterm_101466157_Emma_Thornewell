@@ -44,6 +44,8 @@ public class CalenderManager : MonoBehaviour
     public Season currentSeason;
 
     private Calender.DateTime currentDateTime;
+    private Calender.DateTime currentSeasonDT;
+
     #endregion
 
     private void Start()
@@ -91,6 +93,10 @@ public class CalenderManager : MonoBehaviour
     {
         return currentDateTime;
     }
+    public Calender.DateTime UpdatedCurrentSeason()
+    {
+        return currentDateTime;
+    }
     public void CreateCalender(Calender.DateTime dateTime)
     {
         currentDateTime = dateTime;
@@ -123,14 +129,14 @@ public class CalenderManager : MonoBehaviour
                     //check to see if there is an event that needs to be added
                     foreach (var calenderEvents in events)
                     {
-                        if (currentDate == calenderEvents.eventDate.Date && currentSeason == calenderEvents.eventDate.Season)
+                        if (currentDate == calenderEvents.eventDate.Date && currentDateTime.Season == calenderEvents.eventDate.Season)
                         {
+                            dayColor = calenderEvents.color;
                             calenderEvents.TriggerEvent(this);
                         }
                     }
 
-                    //CreateEvents();
-
+                    Debug.Log($"Current Day: {dateTime.Date}, Current Season: {dateTime.Season}");
                     //highlight the current day in green
                     if (currentDate == dateTime.Date)
                     {

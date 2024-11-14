@@ -494,6 +494,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 29e30a874a9dc4f40939c2e0b4fa93a8, type: 2}
   - {fileID: 11400000, guid: 8bde8a5cc332e164cb0b5f715269faee, type: 2}
   - {fileID: 11400000, guid: cf50a4355c65e494999cd39d7738f5b5, type: 2}
+  - {fileID: 11400000, guid: 2f2f9844ba401d140ba9b57938e2cdb9, type: 2}
   currentDate: 0
   currentSeason: 0
 --- !u!224 &1176804305 stripped
@@ -625,9 +626,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9822e5d4d8ad0b54ca0c2f49324daaf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hour: 21
+  hour: 19
   minute: 0
-  season: 1
+  season: 3
   date: 6
   year: 1
   TickIncrease: 30

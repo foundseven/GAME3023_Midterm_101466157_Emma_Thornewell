@@ -39,5 +39,10 @@ public class NewEventSO : CalenderEventSO
     public override void TriggerEvent(CalenderManager calenderManager)
     {
         calenderManager.dayColor = color;
+        Debug.Log($"{calenderManager.currentDate}");
+        if(calenderManager.UpdatedCurrentDate().Date == eventDate.Date)
+        {
+            Debug.Log("It is the day of your event!");
+        }
     }
 }

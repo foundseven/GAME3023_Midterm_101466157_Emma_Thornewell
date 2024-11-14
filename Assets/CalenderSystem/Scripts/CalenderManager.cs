@@ -40,8 +40,10 @@ public class CalenderManager : MonoBehaviour
     [Header("Events List")]
     public List<CalenderEventSO> events;
 
-    private int currentDate;
-    private Season currentSeason;
+    public int currentDate;
+    public Season currentSeason;
+
+    private Calender.DateTime currentDateTime;
     #endregion
 
     private void Start()
@@ -85,8 +87,14 @@ public class CalenderManager : MonoBehaviour
         light2D.intensity = Mathf.Lerp(light2D.intensity, targetBrightness, 0.5f * 1);
     }
 
+    public Calender.DateTime UpdatedCurrentDate()
+    {
+        return currentDateTime;
+    }
     public void CreateCalender(Calender.DateTime dateTime)
     {
+        currentDateTime = dateTime;
+
         int daysInMonth = 28;
         int firstDayOfMonth = (int)dateTime.Days - ((dateTime.Date - 1) % 7);
 
@@ -112,6 +120,7 @@ public class CalenderManager : MonoBehaviour
                     //set the  base color
                     dayColor = Color.white;
 
+                    //check to see if there is an event that needs to be added
                     foreach (var calenderEvents in events)
                     {
                         if (currentDate == calenderEvents.eventDate.Date && currentSeason == calenderEvents.eventDate.Season)
@@ -134,22 +143,10 @@ public class CalenderManager : MonoBehaviour
             }
         }
     }
-
     public void ToggleOffandOn()
     {
         calenderPrefab.SetActive(!calenderPrefab.activeSelf);
     }
-
-    //public void CreateEvents()
-    //{
-    //    foreach (CalenderEvents calEvent in events)
-    //    {
-    //        if (currentDate == calenderEvents.eventDate.Date && currentSeason == calenderEvents.eventDate.Season)
-    //        {
-    //            calenderEvents.TriggerEvent(this);
-    //        }
-    //    }
-    //}
 
     #endregion
 }

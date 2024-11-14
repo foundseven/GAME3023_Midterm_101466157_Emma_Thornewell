@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.Rendering.Universal;
 
 public class CalenderEvents
@@ -16,7 +17,6 @@ public class CalenderManager : MonoBehaviour
 {
     #region Variables
     [Header("Calender Text Settings")]
-
     [SerializeField]
     public TextMeshProUGUI Date, Clock, Season, Year, Week;
 
@@ -33,7 +33,6 @@ public class CalenderManager : MonoBehaviour
     public float dayBrightness;
 
     public GameObject rainPrefab;
-
     public GameObject calenderPrefab;
 
     public Color dayColor;
@@ -41,7 +40,8 @@ public class CalenderManager : MonoBehaviour
     [Header("Events List")]
     public List<CalenderEventSO> events;
 
-
+    private int currentDate;
+    private Season currentSeason;
     #endregion
 
     private void Start()
@@ -63,20 +63,30 @@ public class CalenderManager : MonoBehaviour
     //make a function that will update all of the Text
     public void UpdateDateTimeUI(Calender.DateTime dateTime)
     {
+        //updateUI
         Date.text = dateTime.DateString();
         Clock.text = dateTime.TimeString();
         Season.text = dateTime.Season.ToString();
         Year.text = dateTime.YearString();
         Week.text = dateTime.WeekString();
 
-
-        //TODO: make this more readable
         // Clear existing calendar entries
         foreach (Transform child in calenderGrid.transform)
         {
             Destroy(child.gameObject);
         }
 
+        CreateCalender(dateTime);
+
+        //set target brightness
+        float targetBrightness = dateTime.IsNight() ? nightBrightness : dayBrightness;
+
+        //transition to the target brightness
+        light2D.intensity = Mathf.Lerp(light2D.intensity, targetBrightness, 0.5f * 1);
+    }
+
+    public void CreateCalender(Calender.DateTime dateTime)
+    {
         int daysInMonth = 28;
         int firstDayOfMonth = (int)dateTime.Days - ((dateTime.Date - 1) % 7);
 
@@ -101,8 +111,6 @@ public class CalenderManager : MonoBehaviour
 
                     //set the  base color
                     dayColor = Color.white;
-                    //get the current season
-                    Season currentSeason = dateTime.Season;
 
                     foreach (var calenderEvents in events)
                     {
@@ -112,10 +120,7 @@ public class CalenderManager : MonoBehaviour
                         }
                     }
 
-                    //else if (currentDate == dateTime.HalloweenHaunt(dateTime.Year).Date && currentSeason == dateTime.HalloweenHaunt(dateTime.Year).Season)
-                    //{
-                    //    dayColor = Color.yellow;
-                    //}
+                    //CreateEvents();
 
                     //highlight the current day in green
                     if (currentDate == dateTime.Date)
@@ -128,11 +133,6 @@ public class CalenderManager : MonoBehaviour
                 }
             }
         }
-        //set target brightness
-        float targetBrightness = dateTime.IsNight() ? nightBrightness : dayBrightness;
-
-        //transition to the target brightness
-        light2D.intensity = Mathf.Lerp(light2D.intensity, targetBrightness, 0.5f * 1);
     }
 
     public void ToggleOffandOn()
@@ -140,33 +140,13 @@ public class CalenderManager : MonoBehaviour
         calenderPrefab.SetActive(!calenderPrefab.activeSelf);
     }
 
-    public void CheckAndTriggerEvents(Calender.DateTime dateTime)
-    {
-        foreach (var calenderEvent in events)
-        {
-            if (calenderEvent.eventDate.Equals(dateTime))
-            {
-                calenderEvent.TriggerEvent(this);
-            }
-        }
-    }
-
-    //public void AddEventToCalender(Calender.DateTime dateTime, int currentDate, Color eventColor)
+    //public void CreateEvents()
     //{
-    //    //get the current season
-    //    Season currentSeason = dateTime.Season;
-
-    //    if (currentDate == dateTime.AddCustomEvent(0, 6, 7, 0, 1).Date && currentSeason == dateTime.AddCustomEvent(0, 6, 7, 0, 1).Season)
+    //    foreach (CalenderEvents calEvent in events)
     //    {
-    //        eventColor = Color.cyan;
-
-    //        if (dateTime.Date == dateTime.AddCustomEvent(0, 6, 7, 0, 1).Date)
+    //        if (currentDate == calenderEvents.eventDate.Date && currentSeason == calenderEvents.eventDate.Season)
     //        {
-    //            rainPrefab.SetActive(true);
-    //        }
-    //        else
-    //        {
-    //            rainPrefab.SetActive(false);
+    //            calenderEvents.TriggerEvent(this);
     //        }
     //    }
     //}

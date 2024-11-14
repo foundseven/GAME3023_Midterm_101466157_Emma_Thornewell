@@ -493,6 +493,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dc2a856ccdb80294ca3213e08675c14c, type: 2}
   - {fileID: 11400000, guid: 29e30a874a9dc4f40939c2e0b4fa93a8, type: 2}
   - {fileID: 11400000, guid: 8bde8a5cc332e164cb0b5f715269faee, type: 2}
+  - {fileID: 11400000, guid: cf50a4355c65e494999cd39d7738f5b5, type: 2}
 --- !u!224 &1176804305 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9173658750554244896, guid: e33bd52a264d8a941b8f309f167642dd, type: 3}
@@ -624,7 +625,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hour: 0
   minute: 0
-  season: 3
+  season: 1
   date: 1
   year: 1
   TickIncrease: 30

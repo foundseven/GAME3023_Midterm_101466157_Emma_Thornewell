@@ -258,21 +258,6 @@ namespace Calender
             return hour >= 6 && hour < 12;
         }
 
-        //public DateTime RainySeason(int year)
-        //{
-        //    return new DateTime(0, 6, 7, 0, year);
-        //}
-
-        //public DateTime SummerSolstice(int year)
-        //{
-        //    return new DateTime(0, 6, 28, 0, year);
-        //}
-
-        //public DateTime HalloweenHaunt(int year)
-        //{  
-        //    return new DateTime(0, 6, 20, 2, year);
-        //}
-
         public DateTime AddCustomEvent(int minutes, int hours, int date, int season, int year)
         {
             return new DateTime(minutes, hours, date, season, year);

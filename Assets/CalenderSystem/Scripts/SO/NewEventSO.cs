@@ -6,11 +6,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewEvent", menuName = "CalendarEvents/NewEvent")]
 public class NewEventSO : CalenderEventSO
 {
+    #region Variables
     public string eventName;
- 
-    ////create the color in the editor
-    //public Color color;
-
     [Header("Date and Time Settings")]
     //hours
     [Range(0, 24)]
@@ -29,6 +26,11 @@ public class NewEventSO : CalenderEventSO
     [Range(1, 50)] //50 years ig will be fine
     public int year;
 
+    [Header("Prefab Settings")]
+    public GameObject prefab;
+
+    #endregion
+
     private void OnEnable()
     {
         // Set the specific date for the rainy season event, for example.
@@ -43,6 +45,19 @@ public class NewEventSO : CalenderEventSO
         if(calenderManager.UpdatedCurrentDate().Date == eventDate.Date)
         {
             Debug.Log("It is the day of your event!");
+
+            //if(prefab != null) 
+            //{
+            //    prefab.SetActive(true);
+            //}
+            //else
+            //{
+            //    Debug.Log("No prefab added!");
+            //}
         }
+        //else
+        //{
+        //    prefab.SetActive(false);
+        //}
     }
 }

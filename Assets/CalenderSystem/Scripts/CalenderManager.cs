@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using TMPro;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.Rendering.Universal;
@@ -19,6 +20,7 @@ public class CalenderManager : MonoBehaviour
     [Header("Calender Text Settings")]
     [SerializeField]
     public TextMeshProUGUI Date, Clock, Season, Year, Week;
+    public TextMeshProUGUI eventListText;
 
     [Header("Grid Settings")]
     [SerializeField]
@@ -39,6 +41,7 @@ public class CalenderManager : MonoBehaviour
 
     [Header("Events List")]
     public List<CalenderEventSO> events;
+    public int displayDaysAhead = 30;
 
     public int currentDate;
     public Season currentSeason;
@@ -46,17 +49,22 @@ public class CalenderManager : MonoBehaviour
     private Calender.DateTime currentDateTime;
     private Calender.DateTime currentSeasonDT;
 
+    private Season displayedSeason;
     #endregion
 
     private void Start()
     {
         calenderPrefab.SetActive(false);
         rainPrefab.SetActive(false);
+
+        //DisplayUpcomingEvents();
     }
 
     private void OnEnable()
     {
         TimeManager.OnDateTimeChanged += UpdateDateTimeUI;
+        //DisplayUpcomingEvents();
+
     }
     private void OnDisable()
     {
@@ -80,7 +88,9 @@ public class CalenderManager : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        CreateCalender(dateTime);
+        CreateCalender(dateTime, displayedSeason);
+        DisplayUpcomingEvents();
+        GetCurrentSeason();
 
         //set target brightness
         float targetBrightness = dateTime.IsNight() ? nightBrightness : dayBrightness;
@@ -97,7 +107,7 @@ public class CalenderManager : MonoBehaviour
     {
         return currentDateTime;
     }
-    public void CreateCalender(Calender.DateTime dateTime)
+    public void CreateCalender(Calender.DateTime dateTime, Season season)
     {
         currentDateTime = dateTime;
 
@@ -135,8 +145,18 @@ public class CalenderManager : MonoBehaviour
                             calenderEvents.TriggerEvent(this);
                         }
                     }
+                    ////display them
+                    //foreach (var eventSO in events)
+                    //{
+                    //    // Calculate how far ahead the event is
+                    //    if (eventSO.eventDate.Season == dateTime.Season)
+                    //    {
+                    //        string eventInfo = $"{eventSO.eventName} on {eventSO.eventDate.Season} {eventSO.eventDate.Date}\n";
+                    //        eventListText.text += eventInfo;
+                    //    }
+                    //}
 
-                    Debug.Log($"Current Day: {dateTime.Date}, Current Season: {dateTime.Season}");
+                    //Debug.Log($"Current Day: {dateTime.Date}, Current Season: {dateTime.Season}");
                     //highlight the current day in green
                     if (currentDate == dateTime.Date)
                     {
@@ -149,10 +169,42 @@ public class CalenderManager : MonoBehaviour
             }
         }
     }
+    public void GetCurrentSeason()
+    {
+        displayedSeason = currentDateTime.Season;
+        Debug.Log($"Current season: {displayedSeason}");
+    }
+    public void DisplayUpcomingEvents()
+    {
+        eventListText.text = "";
+        foreach (var eventSO in events)
+        {
+            // Calculate how far ahead the event is
+            if(eventSO.eventDate.Season == currentDateTime.Season)
+            {
+                string eventInfo = $"{eventSO.eventName} on {eventSO.eventDate.Season} {eventSO.eventDate.Date}\n";
+                eventListText.text += eventInfo;
+            }
+        }
+    }
+    #endregion
+
+    #region Buttons
     public void ToggleOffandOn()
     {
         calenderPrefab.SetActive(!calenderPrefab.activeSelf);
     }
 
+    public void NextSeason()
+    {
+        displayedSeason = (Season)(((int)displayedSeason + 1) % Enum.GetValues(typeof(Season)).Length);
+
+        Season.text = displayedSeason.ToString();
+    }
+
+    public void PreviousSeason()
+    {
+
+    }
     #endregion
 }

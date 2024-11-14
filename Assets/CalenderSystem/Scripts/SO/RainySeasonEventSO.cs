@@ -15,8 +15,6 @@ public class RainySeasonEventSO : CalenderEventSO
 
     public override void TriggerEvent(CalenderManager calenderManager)
     {
-        //Debug.Log("Triggered");
-        //calenderManager.rainPrefab.SetActive(true);
         calenderManager.dayColor = Color.cyan;
     }
 }

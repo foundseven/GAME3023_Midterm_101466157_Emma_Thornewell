@@ -11,7 +11,6 @@ public class NewEventSO : CalenderEventSO
     //create the color in the editor
     public Color color;
 
-    //add the time and date in the editor tho
     [Header("Date and Time Settings")]
     //hours
     [Range(0, 24)]

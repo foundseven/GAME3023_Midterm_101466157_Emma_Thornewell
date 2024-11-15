@@ -3,6 +3,7 @@ Custom Calendar System
 This project implements a custom calendar system with special events, dynamic lighting, audio integration, and seasonal changes.
 
 Features
+
 Calendar Events
 Event Triggers: Handles special events on specific dates using CalenderEventSO and NewEventSO.
 Dynamic Prefabs: Attach and display prefabs (e.g., hats) during events.

@@ -52,15 +52,11 @@ public class CalenderManager : MonoBehaviour
     {
         calenderPrefab.SetActive(false);
         rainPrefab.SetActive(false);
-
-        //DisplayUpcomingEvents();
     }
 
     private void OnEnable()
     {
         TimeManager.OnDateTimeChanged += UpdateDateTimeUI;
-        //DisplayUpcomingEvents();
-
     }
     private void OnDisable()
     {
@@ -99,9 +95,9 @@ public class CalenderManager : MonoBehaviour
     {
         return currentDateTime;
     }
-    public Calender.DateTime UpdatedCurrentSeason()
+    public Calender.Season UpdatedCurrentSeason(Season season)
     {
-        return currentDateTime;
+        return season;
     }
     public void CreateCalender(Calender.DateTime dateTime, Season season)
     {
@@ -115,7 +111,7 @@ public class CalenderManager : MonoBehaviour
         {
             for (int weekDay = 1; weekDay <= 7; weekDay++)
             {
-                int currentDate = week * 7 + weekDay;
+                currentDate = week * 7 + weekDay;
 
                 if (currentDate < firstDayOfMonth || currentDate > daysInMonth)
                 {
@@ -141,16 +137,6 @@ public class CalenderManager : MonoBehaviour
                             calenderEvents.TriggerEvent(this);
                         }
                     }
-                    ////display them
-                    //foreach (var eventSO in events)
-                    //{
-                    //    // Calculate how far ahead the event is
-                    //    if (eventSO.eventDate.Season == dateTime.Season)
-                    //    {
-                    //        string eventInfo = $"{eventSO.eventName} on {eventSO.eventDate.Season} {eventSO.eventDate.Date}\n";
-                    //        eventListText.text += eventInfo;
-                    //    }
-                    //}
 
                     //Debug.Log($"Current Day: {dateTime.Date}, Current Season: {dateTime.Season}");
                     //highlight the current day in green
@@ -170,6 +156,7 @@ public class CalenderManager : MonoBehaviour
         displayedSeason = currentDateTime.Season;
         Debug.Log($"Current season: {displayedSeason}");
     }
+    //i could expland on this to make this a little nicer
     public void DisplayUpcomingEvents()
     {
         eventListText.text = "";
@@ -183,6 +170,18 @@ public class CalenderManager : MonoBehaviour
             }
         }
     }
+
+    public void CreateEventsInCalender()
+    {
+        foreach (var calenderEvents in events)
+        {
+            if (currentDate == calenderEvents.eventDate.Date && currentDateTime.Season == calenderEvents.eventDate.Season)
+            {
+                dayColor = calenderEvents.color;
+                calenderEvents.TriggerEvent(this);
+            }
+        }
+    }
 #endregion
 
     #region Buttons
@@ -193,14 +192,16 @@ public class CalenderManager : MonoBehaviour
 
     public void NextSeason()
     {
-        displayedSeason = (Season)(((int)displayedSeason + 1) % Enum.GetValues(typeof(Season)).Length);
+        TimeManager.Instance.season = TimeManager.Instance.season + 1;
 
-        Season.text = displayedSeason.ToString();
+        TimeManager.Instance.UpdateDateTime();
     }
 
     public void PreviousSeason()
     {
+        TimeManager.Instance.season = TimeManager.Instance.season - 1;
 
+        TimeManager.Instance.UpdateDateTime();
     }
     #endregion
 }

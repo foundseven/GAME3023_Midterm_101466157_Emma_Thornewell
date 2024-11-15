@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baf66118e6348d54faa7b201380e5e19, type: 3}
   m_Name: Birthday
   m_EditorClassIdentifier: 
-  color: {r: 1, g: 0.05098039, b: 0.6657743, a: 1}
   eventName: BirthdayEvent
+  color: {r: 1, g: 0.05098039, b: 0.6657743, a: 1}
   hour: 5
   minute: 0
   season: 3
   date: 16
   year: 1
+  hasPrefab: 0
+  prefab: {fileID: 0}
+  spawnPosition: {x: 0, y: 0, z: 0}
+  useCustomPosition: 0

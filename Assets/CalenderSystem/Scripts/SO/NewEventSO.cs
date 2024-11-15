@@ -7,7 +7,7 @@ using UnityEngine;
 public class NewEventSO : CalenderEventSO
 {
     #region Variables
-    public string eventName;
+    //public string eventName;
     [Header("Date and Time Settings")]
     //hours
     [Range(0, 24)]
@@ -27,12 +27,19 @@ public class NewEventSO : CalenderEventSO
     public int year;
 
     [Header("Prefab Settings")]
+    public bool hasPrefab;
     public GameObject prefab;
+    public Vector3 spawnPosition;
+    public bool useCustomPosition;
 
     #endregion
 
     private void OnEnable()
     {
+        if(hasPrefab)
+        {
+            prefab.SetActive(true);
+        }
         // Set the specific date for the rainy season event, for example.
         eventDate = new Calender.DateTime(minute, hour, date, season - 1, year);
         Debug.Log($"Created new event: {eventName} on {eventDate.Date}, {eventDate.Season}");
@@ -42,22 +49,18 @@ public class NewEventSO : CalenderEventSO
     {
         calenderManager.dayColor = color;
         Debug.Log($"{calenderManager.currentDate}");
+
         if(calenderManager.UpdatedCurrentDate().Date == eventDate.Date)
         {
-            Debug.Log("It is the day of your event!");
+            Debug.Log($"It is the day of your event! {eventName}");
 
-            //if(prefab != null) 
-            //{
-            //    prefab.SetActive(true);
-            //}
-            //else
-            //{
-            //    Debug.Log("No prefab added!");
-            //}
+            if (hasPrefab && prefab != null)
+            {
+                GameObject instantiatedPrefab = Instantiate(prefab);
+                instantiatedPrefab.transform.position = useCustomPosition ? spawnPosition : Vector3.zero;
+                Debug.Log("Prefab instantiated!");
+            }
         }
-        //else
-        //{
-        //    prefab.SetActive(false);
-        //}
+
     }
 }

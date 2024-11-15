@@ -17,5 +17,9 @@ MonoBehaviour:
   hour: 0
   minute: 0
   season: 1
-  date: 11
+  date: 2
   year: 1
+  hasPrefab: 1
+  prefab: {fileID: 5766077258456834022, guid: 543cec5c05fe1b945877eeba6778e9e4, type: 3}
+  spawnPosition: {x: 0, y: 0, z: 0}
+  useCustomPosition: 0

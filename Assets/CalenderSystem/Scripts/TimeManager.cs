@@ -111,7 +111,7 @@ namespace Calender
             OnDateTimeChanged?.Invoke(dateTime);
         }
 
-        private void UpdateDateTime()
+        public void UpdateDateTime()
         {
             dateTime = new DateTime(minute, hour, date, season - 1, year);
         }

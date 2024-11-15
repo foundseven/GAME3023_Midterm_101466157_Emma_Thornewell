@@ -41915,7 +41915,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hour: 17
   minute: 0
-  season: 3
+  season: 1
   date: 27
   year: 1
   TickIncrease: 30

@@ -17,6 +17,10 @@ public class HalloweenHauntSO : CalenderEventSO
         {
             calenderManager.light2D.color = Color.red;
         }
+        else
+        {
+            calenderManager.light2D.color = Color.white;
+        }
 
     }
 }

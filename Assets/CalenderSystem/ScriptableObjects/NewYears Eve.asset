@@ -20,6 +20,8 @@ MonoBehaviour:
   date: 28
   year: 1
   hasPrefab: 0
-  prefab: {fileID: 0}
+  prefab: {fileID: 5766077258456834022, guid: 543cec5c05fe1b945877eeba6778e9e4, type: 3}
   spawnPosition: {x: 0, y: 0, z: 0}
   useCustomPosition: 0
+  hasAudio: 0
+  backgroundMusic: {fileID: 8300000, guid: bbc9596ceeb9d0549940cdd3079b93ae, type: 3}

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baf66118e6348d54faa7b201380e5e19, type: 3}
+  m_Name: Testing
+  m_EditorClassIdentifier: 
+  eventName: Testing
+  color: {r: 0, g: 0, b: 0, a: 0}
+  hour: 21
+  minute: 0
+  season: 1
+  date: 2
+  year: 0
+  image: {fileID: 0}
+  hasPrefab: 1
+  prefab: {fileID: 5766077258456834022, guid: 543cec5c05fe1b945877eeba6778e9e4, type: 3}
+  spawnPosition: {x: 0, y: -8, z: 0}
+  useCustomPosition: 1

@@ -27,6 +27,8 @@ public class NewEventSO : CalenderEventSO
     public int year;
 
     [Header("Prefab Settings")]
+    public Sprite image;
+    private GameObject instantiatedPrefab;
     public bool hasPrefab;
     public GameObject prefab;
     public Vector3 spawnPosition;
@@ -54,11 +56,26 @@ public class NewEventSO : CalenderEventSO
         {
             Debug.Log($"It is the day of your event! {eventName}");
 
-            if (hasPrefab && prefab != null)
+            //if (hasPrefab && prefab != null)
+            //{
+            //   // GameObject instantiatedPrefab = Instantiate(prefab);
+            //   // instantiatedPrefab.transform.position = useCustomPosition ? spawnPosition : Vector3.zero;
+            //  //  Debug.Log("Prefab instantiated!");
+            //}
+            if (hasPrefab && prefab != null && instantiatedPrefab == null)
             {
-                GameObject instantiatedPrefab = Instantiate(prefab);
+                instantiatedPrefab = Instantiate(prefab);
                 instantiatedPrefab.transform.position = useCustomPosition ? spawnPosition : Vector3.zero;
+                instantiatedPrefab.SetActive(true);
                 Debug.Log("Prefab instantiated!");
+            }
+        }
+        else
+        {
+            // Optionally deactivate the prefab if the event is not happening today
+            if (instantiatedPrefab != null)
+            {
+                instantiatedPrefab.SetActive(false);
             }
         }
 

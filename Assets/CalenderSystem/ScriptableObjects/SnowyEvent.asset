@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: baf66118e6348d54faa7b201380e5e19, type: 3}
-  m_Name: TestingEvent
+  m_Name: SnowyEvent
   m_EditorClassIdentifier: 
-  eventName: TestingEvent
-  color: {r: 1, g: 0, b: 0, a: 1}
+  eventName: SnowyEvent
+  color: {r: 0, g: 0.20750046, b: 1, a: 1}
   hour: 0
   minute: 0
-  season: 1
-  date: 2
+  season: 4
+  date: 11
   year: 1
+  image: {fileID: 1439839321, guid: 44da59f0954eaba4db38dd41814fc42e, type: 3}
   hasPrefab: 1
   prefab: {fileID: 5766077258456834022, guid: 543cec5c05fe1b945877eeba6778e9e4, type: 3}
-  spawnPosition: {x: 0, y: 0, z: 0}
-  useCustomPosition: 0
+  spawnPosition: {x: 0, y: -8.32, z: 0}
+  useCustomPosition: 1

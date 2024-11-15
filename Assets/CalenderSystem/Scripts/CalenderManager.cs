@@ -1,12 +1,8 @@
 using Calender;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using TMPro;
-using UnityEditor.PackageManager;
 using UnityEngine;
-using UnityEngine.Analytics;
 using UnityEngine.Rendering.Universal;
 
 public class CalenderEvents
@@ -187,7 +183,7 @@ public class CalenderManager : MonoBehaviour
             }
         }
     }
-    #endregion
+#endregion
 
     #region Buttons
     public void ToggleOffandOn()

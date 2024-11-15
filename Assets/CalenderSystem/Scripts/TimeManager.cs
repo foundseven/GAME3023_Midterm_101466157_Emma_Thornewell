@@ -9,6 +9,23 @@ namespace Calender
 {
     public class TimeManager : MonoBehaviour
     {
+        private static TimeManager instance = null;
+        public static TimeManager Instance
+        {
+            get
+            {
+                if(instance == null)
+                {
+                    instance = FindFirstObjectByType<TimeManager>();
+                }
+                return instance;
+            }
+            private set
+            {
+                instance = value;
+            }
+        }
+
         #region Variables
         //so what do i need in order to make a calender
         [Header("Date and Time Settings")]
@@ -33,7 +50,8 @@ namespace Calender
         //"DateTime helps developer to find out more information about Date and Time like Get month, day, year, week day.
         //It also helps to find date difference, add number of days to a date, etc."
         //So we can store the current date and time this way
-        private DateTime DateTime;
+        private DateTime dateTime;
+        public DateTime DateTime { get { return dateTime; } private set { } }
 
         //create a unity action with date time so we can alert anything that needs to know
         //so everytime the date changes it can recieve this unity action and will update the clock accordingly
@@ -53,16 +71,22 @@ namespace Calender
 
         #endregion
 
+        private void OnValidate()
+        {
+            UpdateDateTime();
+            Debug.Log("TimeManager Validate!");
+        }
+
         private void Awake()
         {
             //setting a new datetime with my variables
             //our own struct if yew will
-            DateTime = new DateTime(minute, hour, date, season - 1, year);
+            UpdateDateTime();
         }
 
         void Start()
         {
-            OnDateTimeChanged?.Invoke(DateTime);
+            OnDateTimeChanged?.Invoke(dateTime);
         }
 
         //we will want to run through ticking here
@@ -83,8 +107,13 @@ namespace Calender
         private void AdvanceTime()
         {
             //ill call on my functions i made here
-            DateTime.AdvanceMinutes(TickIncrease);
-            OnDateTimeChanged?.Invoke(DateTime);
+            dateTime.AdvanceMinutes(TickIncrease);
+            OnDateTimeChanged?.Invoke(dateTime);
+        }
+
+        private void UpdateDateTime()
+        {
+            dateTime = new DateTime(minute, hour, date, season - 1, year);
         }
     }
 

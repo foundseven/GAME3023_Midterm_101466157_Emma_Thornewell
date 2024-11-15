@@ -23,7 +23,7 @@ public class NewEventSO : CalenderEventSO
     [Range(1, 28)]
     public int date;
     //year
-    [Range(1, 50)] //50 years ig will be fine
+    [Min(0)]
     public int year;
 
     [Header("Prefab Settings")]

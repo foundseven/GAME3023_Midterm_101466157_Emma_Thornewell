@@ -1,12 +1,9 @@
 using Calender;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "HalloweenHauntEvent", menuName = "CalendarEvents/HalloweenHaunt")]
 public class HalloweenHauntSO : CalenderEventSO
 {
-    public Color color;
     private void OnEnable()
     {
         // Set the specific date for the rainy season event, for example.

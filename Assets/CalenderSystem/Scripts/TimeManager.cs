@@ -254,12 +254,14 @@ namespace Calender
             //so run through all of them, starting at spring
             //when it hits the last one (winter), go back to spring
 
-            season++;
-
-            if(Season == Season.Winter)
+            if (season == Season.Winter)
             {
                 season = Season.Spring;
                 AdvanceYear();
+            }
+            else
+            {
+                season++;  // Go to the next season (spring -> summer -> fall -> winter)
             }
         }
 

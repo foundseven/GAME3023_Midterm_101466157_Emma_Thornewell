@@ -41913,10 +41913,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9822e5d4d8ad0b54ca0c2f49324daaf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hour: 17
+  hour: 0
   minute: 0
   season: 1
-  date: 27
+  date: 1
   year: 1
   TickIncrease: 30
   TimeBetweenTicks: 0.5

@@ -15,6 +15,7 @@ public class HalloweenHauntSO : CalenderEventSO
         calenderManager.dayColor = Color.yellow;
         if (calenderManager.UpdatedCurrentDate().Date == eventDate.Date)
         {
+            Debug.Log("EVENT");
             calenderManager.light2D.color = Color.red;
         }
         else

@@ -1,4 +1,5 @@
 Custom Calendar System
+
 This project implements a custom calendar system with special events, dynamic lighting, audio integration, and seasonal changes.
 
 Features

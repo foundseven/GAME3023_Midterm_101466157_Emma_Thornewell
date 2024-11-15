@@ -35,6 +35,12 @@ public class NewEventSO : CalenderEventSO
     public Vector3 spawnPosition;
     public bool useCustomPosition;
 
+    [Header("Audio Settings")]
+    public bool hasAudio;
+    public AudioClip backgroundMusic;
+
+    private AudioSource audioSource;
+
 
     #endregion
 
@@ -48,7 +54,6 @@ public class NewEventSO : CalenderEventSO
     public override void TriggerEvent(CalenderManager calenderManager)
     {
         calenderManager.dayColor = color;
-        //Debug.Log($"{calenderManager.currentDate}");
         Debug.Log($"{color}");
 
         // Get the player's transform
@@ -61,15 +66,34 @@ public class NewEventSO : CalenderEventSO
         {
             Debug.Log($"It is the day of your event! {eventName}");
 
+            if (hasAudio && backgroundMusic != null)
+            {
+                if (audioSource == null)
+                {
+                    audioSource = calenderManager.GetComponent<AudioSource>();
+                    if (audioSource == null)
+                    {
+                        audioSource = calenderManager.gameObject.AddComponent<AudioSource>();
+                    }
+                }
+
+                if (!audioSource.isPlaying || audioSource.clip != backgroundMusic)
+                {
+                    audioSource.clip = backgroundMusic;
+                    audioSource.Play();
+                    Debug.Log($"Playing background music for {eventName}");
+                }
+            }
+
             if (hasPrefab && prefab != null && instantiatedPrefab == null)
             {
                 // Instantiate the prefab and set its parent to the player
                 instantiatedPrefab = Instantiate(prefab);
-                instantiatedPrefab.transform.SetParent(playerTransform);  // Attach to the player
+                instantiatedPrefab.transform.SetParent(playerTransform);
 
                 // Position it relative to the player's head
-                instantiatedPrefab.transform.localPosition = new Vector3(0, 1.5f, 0);  // Adjust this value to suit your player model's head height
-                instantiatedPrefab.transform.localRotation = Quaternion.identity;  // Keep it upright
+                instantiatedPrefab.transform.localPosition = new Vector3(0, 1.5f, 0);
+                instantiatedPrefab.transform.localRotation = Quaternion.identity; 
 
                 instantiatedPrefab.SetActive(true);
                 Debug.Log("Prefab attached to player!");
@@ -77,10 +101,16 @@ public class NewEventSO : CalenderEventSO
         }
         else
         {
-            // Optionally deactivate the prefab if the event is not happening today
+            //deactivate
             if (instantiatedPrefab != null)
             {
                 instantiatedPrefab.SetActive(false);
+            }
+
+            if (audioSource != null && audioSource.isPlaying)
+            {
+                audioSource.Stop();
+                Debug.Log("Stopped background music as the event is no longer active.");
             }
         }
 

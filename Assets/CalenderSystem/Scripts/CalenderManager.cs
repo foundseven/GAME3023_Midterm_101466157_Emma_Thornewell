@@ -46,6 +46,7 @@ public class CalenderManager : MonoBehaviour
     private Calender.DateTime currentSeasonDT;
 
     private Season displayedSeason;
+
     #endregion
 
     private void Start()
@@ -128,7 +129,7 @@ public class CalenderManager : MonoBehaviour
                     //set the  base color
                     dayColor = Color.white;
 
-                    //check to see if there is an event that needs to be added
+                    ////check to see if there is an event that needs to be added
                     foreach (var calenderEvents in events)
                     {
                         if (currentDate == calenderEvents.eventDate.Date && currentDateTime.Season == calenderEvents.eventDate.Season)
@@ -167,18 +168,6 @@ public class CalenderManager : MonoBehaviour
             {
                 string eventInfo = $"{eventSO.eventName} on {eventSO.eventDate.Season} {eventSO.eventDate.Date}\n";
                 eventListText.text += eventInfo;
-            }
-        }
-    }
-
-    public void CreateEventsInCalender()
-    {
-        foreach (var calenderEvents in events)
-        {
-            if (currentDate == calenderEvents.eventDate.Date && currentDateTime.Season == calenderEvents.eventDate.Season)
-            {
-                dayColor = calenderEvents.color;
-                calenderEvents.TriggerEvent(this);
             }
         }
     }

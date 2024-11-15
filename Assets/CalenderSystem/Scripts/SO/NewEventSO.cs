@@ -35,14 +35,11 @@ public class NewEventSO : CalenderEventSO
     public Vector3 spawnPosition;
     public bool useCustomPosition;
 
+
     #endregion
 
     private void OnEnable()
     {
-        if(hasPrefab)
-        {
-            prefab.SetActive(true);
-        }
         // Set the specific date for the rainy season event, for example.
         eventDate = new Calender.DateTime(minute, hour, date, season - 1, year);
         Debug.Log($"Created new event: {eventName} on {eventDate.Date}, {eventDate.Season}");
@@ -51,9 +48,10 @@ public class NewEventSO : CalenderEventSO
     public override void TriggerEvent(CalenderManager calenderManager)
     {
         calenderManager.dayColor = color;
-        Debug.Log($"{calenderManager.currentDate}");
+        //Debug.Log($"{calenderManager.currentDate}");
+        Debug.Log($"{color}");
 
-        // Get the player's transform (You could assign this directly in the inspector)
+        // Get the player's transform
         if (playerTransform == null)
         {
             playerTransform = GameObject.FindWithTag("Player").transform;  // Assumes the player has the tag "Player"
@@ -63,19 +61,8 @@ public class NewEventSO : CalenderEventSO
         {
             Debug.Log($"It is the day of your event! {eventName}");
 
-            //if (hasPrefab && prefab != null)
-            //{
-            //   // GameObject instantiatedPrefab = Instantiate(prefab);
-            //   // instantiatedPrefab.transform.position = useCustomPosition ? spawnPosition : Vector3.zero;
-            //  //  Debug.Log("Prefab instantiated!");
-            //}
             if (hasPrefab && prefab != null && instantiatedPrefab == null)
             {
-                //instantiatedPrefab = Instantiate(prefab);
-                //instantiatedPrefab.transform.position = useCustomPosition ? spawnPosition : Vector3.zero;
-                //instantiatedPrefab.SetActive(true);
-                //Debug.Log("Prefab instantiated!");
-
                 // Instantiate the prefab and set its parent to the player
                 instantiatedPrefab = Instantiate(prefab);
                 instantiatedPrefab.transform.SetParent(playerTransform);  // Attach to the player

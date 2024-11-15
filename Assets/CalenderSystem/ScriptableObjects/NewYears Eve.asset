@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baf66118e6348d54faa7b201380e5e19, type: 3}
   m_Name: NewYears Eve
   m_EditorClassIdentifier: 
-  eventName: 
-  color: {r: 1, g: 0, b: 0, a: 0}
+  eventName: NewYears
+  color: {r: 1, g: 0, b: 0, a: 1}
   hour: 0
   minute: 0
   season: 4
   date: 28
-  year: 0
+  year: 1
   hasPrefab: 0
   prefab: {fileID: 0}
   spawnPosition: {x: 0, y: 0, z: 0}

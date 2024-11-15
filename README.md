@@ -60,6 +60,12 @@ SummerSolsticeSO
 **Prefabs**
 
 Attach prefabs to events to display dynamic objects like hats or decorations.
+
+# Special Thanks
+
+A big thank you to Dan Pos for helping me get my feet on the ground with this one. 
+
+-Video reference here: https://youtu.be/wTH5iwO4n0s?si=E3VPLeug5ePqx6mQ
 Lighting
 
 Customize brightness levels for special events using light2D.intensity.

@@ -48813,6 +48813,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Alex
       objectReference: {fileID: 0}
+    - target: {fileID: 547008342577019084, guid: a499c6fe5703d9f469d5832d2959df4a, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 2383115451339927367, guid: a499c6fe5703d9f469d5832d2959df4a, type: 3}
       propertyPath: m_IsActive
       value: 0

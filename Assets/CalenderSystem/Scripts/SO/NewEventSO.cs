@@ -27,8 +27,9 @@ public class NewEventSO : CalenderEventSO
     public int year;
 
     [Header("Prefab Settings")]
-    public Sprite image;
     private GameObject instantiatedPrefab;
+    private Transform playerTransform;
+
     public bool hasPrefab;
     public GameObject prefab;
     public Vector3 spawnPosition;
@@ -52,7 +53,13 @@ public class NewEventSO : CalenderEventSO
         calenderManager.dayColor = color;
         Debug.Log($"{calenderManager.currentDate}");
 
-        if(calenderManager.UpdatedCurrentDate().Date == eventDate.Date)
+        // Get the player's transform (You could assign this directly in the inspector)
+        if (playerTransform == null)
+        {
+            playerTransform = GameObject.FindWithTag("Player").transform;  // Assumes the player has the tag "Player"
+        }
+
+        if (calenderManager.UpdatedCurrentDate().Date == eventDate.Date)
         {
             Debug.Log($"It is the day of your event! {eventName}");
 
@@ -64,10 +71,21 @@ public class NewEventSO : CalenderEventSO
             //}
             if (hasPrefab && prefab != null && instantiatedPrefab == null)
             {
+                //instantiatedPrefab = Instantiate(prefab);
+                //instantiatedPrefab.transform.position = useCustomPosition ? spawnPosition : Vector3.zero;
+                //instantiatedPrefab.SetActive(true);
+                //Debug.Log("Prefab instantiated!");
+
+                // Instantiate the prefab and set its parent to the player
                 instantiatedPrefab = Instantiate(prefab);
-                instantiatedPrefab.transform.position = useCustomPosition ? spawnPosition : Vector3.zero;
+                instantiatedPrefab.transform.SetParent(playerTransform);  // Attach to the player
+
+                // Position it relative to the player's head
+                instantiatedPrefab.transform.localPosition = new Vector3(0, 1.5f, 0);  // Adjust this value to suit your player model's head height
+                instantiatedPrefab.transform.localRotation = Quaternion.identity;  // Keep it upright
+
                 instantiatedPrefab.SetActive(true);
-                Debug.Log("Prefab instantiated!");
+                Debug.Log("Prefab attached to player!");
             }
         }
         else
